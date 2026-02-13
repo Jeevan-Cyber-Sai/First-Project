@@ -222,11 +222,13 @@
                         <p>Interactive learning experiences</p>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item spiderman-item">
                     <div class="gallery-image">
-                        <div class="image-placeholder ar-scene-4"></div>
+                        <div class="image-placeholder ar-scene-4" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; opacity: 0.3;">🕷️</div>
+                        </div>
                         <div class="gallery-overlay">
-                            <button class="btn-view-spiderman">View Spiderman</button>
+                            <button class="btn-view-spiderman">View Spiderman AR</button>
                         </div>
                     </div>
                     <div class="gallery-info">
@@ -293,13 +295,18 @@
                 <!-- Uses model-viewer for 3D/AR rendering of the Spiderman model -->
                 <model-viewer
                     id="spidermanViewer"
-                    src="spiderman/scene.glts"
+                    src="spiderman/scene.gltf"
                     ar
                     ar-modes="webxr scene-viewer quick-look"
                     camera-controls
                     auto-rotate
                     shadow-intensity="1"
-                    style="width: 100%; height: 100%; background: transparent;">
+                    exposure="1.2"
+                    environment-image="neutral"
+                    style="width: 100%; height: 100%; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                    <div slot="ar-button" class="ar-button-slot">
+                        <button class="btn-primary">View in AR</button>
+                    </div>
                 </model-viewer>
             </div>
         </div>

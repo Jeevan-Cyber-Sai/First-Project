@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Load model-viewer early so custom element is defined before use -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer@3.4.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -93,12 +95,6 @@
                             </div>
                             <div class="ar-object floating-object-3">
                                 <div class="object-glow"></div>
-                            </div>
-                        </div>
-                        <div class="ar-overlay">
-                            <div class="overlay-info">
-                                <span class="info-label">AR Mode Active</span>
-                                <span class="info-value">Tracking: 98%</span>
                             </div>
                         </div>
                     </div>
@@ -269,22 +265,24 @@
                 <button class="modal-close" id="closeSpidermanModal">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- Uses model-viewer for 3D/AR rendering of the Spiderman model -->
-                <model-viewer
-                    id="spidermanViewer"
-                    src="spiderman/scene.gltf"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    auto-rotate
-                    shadow-intensity="1"
-                    exposure="1.2"
-                    environment-image="neutral"
-                    style="width: 100%; height: 100%; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
-                    <div slot="ar-button" class="ar-button-slot">
-                        <button class="btn-primary">View in AR</button>
+                <div id="spidermanViewerContainer" class="spiderman-viewer-container">
+                    <model-viewer
+                        id="spidermanViewer"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        exposure="1.2"
+                        style="width: 100%; height: 100%; min-height: 500px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                    </model-viewer>
+                    <div id="spidermanViewerError" class="spiderman-error-message" style="display: none;">
+                        <p>Could not load Spiderman model.</p>
+                        <small>Check that <code>spiderman/scene.gltf</code> and related files exist and you're using a local server (not file://).</small>
                     </div>
-                </model-viewer>
+                    <div id="spidermanViewerLoading" class="spiderman-loading-message">
+                        <div class="loader-spinner"></div>
+                        <p>Loading Spiderman model...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -336,8 +334,6 @@
             </div>
         </div>
     </footer>
-    <!-- 3D model viewer for Spiderman AR -->
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

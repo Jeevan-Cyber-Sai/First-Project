@@ -82,11 +82,15 @@ function closeARModal() {
     stopAR();
 }
 
+// Spiderman model path (relative to page)
+const SPIDERMAN_MODEL_SRC = 'spiderman/scene.gltf';
+
 // Open Spiderman AR Modal (model-viewer based)
 function openSpidermanModal() {
     if (!spidermanModal) return;
     spidermanModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    loadSpidermanModalViewer();
 }
 
 // Close Spiderman AR Modal
@@ -94,6 +98,43 @@ function closeSpidermanModalFn() {
     if (!spidermanModal) return;
     spidermanModal.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// Load model into modal viewer only when modal is open (avoids errors when viewer is hidden)
+function loadSpidermanModalViewer() {
+    const viewer = document.getElementById('spidermanViewer');
+    const container = document.getElementById('spidermanViewerContainer');
+    const loadingEl = document.getElementById('spidermanViewerLoading');
+    const errorEl = document.getElementById('spidermanViewerError');
+    if (!viewer || !container || !loadingEl || !errorEl) return;
+
+    errorEl.style.display = 'none';
+    loadingEl.style.display = 'flex';
+
+    function onLoad() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'none';
+    }
+    function onError() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+    }
+
+    if (viewer.src && viewer.src.indexOf(SPIDERMAN_MODEL_SRC) !== -1) {
+        loadingEl.style.display = 'none';
+        return;
+    }
+
+    viewer.setAttribute('src', SPIDERMAN_MODEL_SRC);
+    viewer.setAttribute('ar', '');
+    viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+    viewer.addEventListener('load', onLoad, { once: true });
+    viewer.addEventListener('error', onError, { once: true });
+    setTimeout(function () {
+        if (loadingEl.style.display !== 'none') {
+            loadingEl.style.display = 'none';
+        }
+    }, 10000);
 }
 
 // Initialize AR Experience
@@ -163,21 +204,7 @@ function addAROverlay() {
     arObject.style.fontSize = '1.2rem';
     arObject.textContent = arModels[currentModelIndex].name;
 
-    // Add tracking indicator
-    const trackingIndicator = document.createElement('div');
-    trackingIndicator.style.position = 'absolute';
-    trackingIndicator.style.top = '20px';
-    trackingIndicator.style.left = '20px';
-    trackingIndicator.style.background = 'rgba(0, 0, 0, 0.7)';
-    trackingIndicator.style.padding = '0.5rem 1rem';
-    trackingIndicator.style.borderRadius = '8px';
-    trackingIndicator.style.color = '#10b981';
-    trackingIndicator.style.fontSize = '0.9rem';
-    trackingIndicator.style.fontWeight = '600';
-    trackingIndicator.innerHTML = '● Tracking Active';
-
     overlay.appendChild(arObject);
-    overlay.appendChild(trackingIndicator);
     arViewport.appendChild(overlay);
 
     // Add CSS animation if not already added
@@ -461,35 +488,34 @@ if ('IntersectionObserver' in window) {
 // Initialize Spiderman Preview Model
 function initializeSpidermanPreview() {
     const preview = document.getElementById('spidermanPreview');
-    if (preview) {
-        // Wait for model-viewer to be ready
-        if (customElements.get('model-viewer')) {
-            preview.addEventListener('load', () => {
-                console.log('Spiderman preview model loaded');
-                preview.style.opacity = '1';
-            });
-            
-            preview.addEventListener('error', (e) => {
-                console.error('Error loading Spiderman preview:', e);
-                // Fallback to placeholder if model fails to load
-                preview.style.display = 'none';
-                const fallback = document.createElement('div');
-                fallback.className = 'image-placeholder ar-scene-4';
-                fallback.style.background = 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)';
-                fallback.style.display = 'flex';
-                fallback.style.alignItems = 'center';
-                fallback.style.justifyContent = 'center';
-                fallback.style.fontSize = '4rem';
-                fallback.style.opacity = '0.5';
-                fallback.textContent = '🕷️';
-                preview.parentElement.insertBefore(fallback, preview);
-            });
-        } else {
-            // Wait for model-viewer to be defined
-            customElements.whenDefined('model-viewer').then(() => {
-                initializeSpidermanPreview();
-            });
-        }
+    if (!preview) return;
+
+    function onPreviewLoad() {
+        preview.style.opacity = '1';
+        preview.setAttribute('loaded', '');
+    }
+    function onPreviewError() {
+        preview.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'image-placeholder ar-scene-4';
+        fallback.style.background = 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)';
+        fallback.style.display = 'flex';
+        fallback.style.alignItems = 'center';
+        fallback.style.justifyContent = 'center';
+        fallback.style.fontSize = '4rem';
+        fallback.style.opacity = '0.5';
+        fallback.textContent = '🕷️';
+        preview.parentElement.insertBefore(fallback, preview);
+    }
+
+    if (customElements.get('model-viewer')) {
+        preview.addEventListener('load', onPreviewLoad, { once: true });
+        preview.addEventListener('error', onPreviewError, { once: true });
+    } else {
+        customElements.whenDefined('model-viewer').then(() => {
+            preview.addEventListener('load', onPreviewLoad, { once: true });
+            preview.addEventListener('error', onPreviewError, { once: true });
+        });
     }
 }
 

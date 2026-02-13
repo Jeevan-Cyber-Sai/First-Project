@@ -398,30 +398,6 @@ body {
     }
 }
 
-.ar-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
-}
-
-.overlay-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-}
-
-.info-label {
-    color: var(--text-secondary);
-}
-
-.info-value {
-    color: var(--primary-light);
-    font-weight: 600;
-}
-
 /* Features Section */
 .features {
     padding: 6rem 0;
@@ -866,6 +842,13 @@ body {
     flex-direction: column;
 }
 
+.spiderman-viewer-container {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
 #spidermanViewer {
     width: 100%;
     height: 100%;
@@ -873,45 +856,42 @@ body {
     border-radius: 0;
 }
 
-.ar-button-slot {
+.spiderman-loading-message,
+.spiderman-error-message {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    z-index: 2;
 }
 
-.ar-button-slot button {
-    background: var(--gradient-1);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: var(--shadow-xl);
-    transition: transform 0.2s, box-shadow 0.2s;
+.spiderman-loading-message .loader-spinner {
+    width: 48px;
+    height: 48px;
 }
 
-.ar-button-slot button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-}
-
-/* Model Viewer Loading State */
-#spidermanViewer::part(default-ar-button) {
-    background: var(--gradient-1);
-    border-radius: 12px;
-    padding: 1rem 2rem;
-    font-weight: 600;
-}
-
-#spidermanViewer::part(postar-button) {
-    background: var(--bg-card);
+.spiderman-error-message {
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+}
+
+.spiderman-error-message code {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--primary-light);
 }
 
 /* Responsive Design */

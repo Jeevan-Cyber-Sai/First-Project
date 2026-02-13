@@ -458,9 +458,47 @@ if ('IntersectionObserver' in window) {
     });
 }
 
+// Initialize Spiderman Preview Model
+function initializeSpidermanPreview() {
+    const preview = document.getElementById('spidermanPreview');
+    if (preview) {
+        // Wait for model-viewer to be ready
+        if (customElements.get('model-viewer')) {
+            preview.addEventListener('load', () => {
+                console.log('Spiderman preview model loaded');
+                preview.style.opacity = '1';
+            });
+            
+            preview.addEventListener('error', (e) => {
+                console.error('Error loading Spiderman preview:', e);
+                // Fallback to placeholder if model fails to load
+                preview.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.className = 'image-placeholder ar-scene-4';
+                fallback.style.background = 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)';
+                fallback.style.display = 'flex';
+                fallback.style.alignItems = 'center';
+                fallback.style.justifyContent = 'center';
+                fallback.style.fontSize = '4rem';
+                fallback.style.opacity = '0.5';
+                fallback.textContent = '🕷️';
+                preview.parentElement.insertBefore(fallback, preview);
+            });
+        } else {
+            // Wait for model-viewer to be defined
+            customElements.whenDefined('model-viewer').then(() => {
+                initializeSpidermanPreview();
+            });
+        }
+    }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('AR Platform initialized');
+    
+    // Initialize Spiderman preview
+    initializeSpidermanPreview();
     
     // Add loading animation completion
     setTimeout(() => {

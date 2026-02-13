@@ -517,6 +517,60 @@ body {
     overflow: hidden;
 }
 
+/* Spiderman Gallery Item with 3D Model */
+.spiderman-item .gallery-image {
+    position: relative;
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+#spidermanPreview {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+#spidermanPreview[loaded] {
+    opacity: 1;
+}
+
+.spiderman-item:hover #spidermanPreview {
+    pointer-events: auto;
+}
+
+/* Loading state for Spiderman preview */
+#spidermanPreview:not([loaded]) {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#spidermanPreview:not([loaded])::before {
+    content: '🕷️';
+    font-size: 3rem;
+    opacity: 0.5;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Ensure overlay stays on top */
+.spiderman-item .gallery-overlay {
+    z-index: 5;
+}
+
 .image-placeholder {
     width: 100%;
     height: 100%;
@@ -573,6 +627,21 @@ body {
     transform: scale(1.05);
 }
 
+.btn-view-spiderman {
+    background: var(--gradient-1);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-view-spiderman:hover {
+    transform: scale(1.05);
+}
+
 .gallery-info {
     padding: 1.5rem;
 }
@@ -585,6 +654,19 @@ body {
 .gallery-info p {
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+/* Spiderman Preview Model Viewer Styling */
+.spiderman-item model-viewer {
+    --poster-color: transparent;
+}
+
+.spiderman-item model-viewer::part(default-ar-button) {
+    display: none;
+}
+
+.spiderman-item model-viewer::part(poster) {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
 }
 
 /* Modal */

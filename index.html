@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AR Platform - Experience Augmented Reality">
+    <title>AR Platform - Augmented Reality Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo-icon">AR</div>
+                <span class="logo-text">AR Platform</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <button class="btn-primary" id="startARBtn">Start AR Experience</button>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Experience the Future</span>
+                    <span class="title-line highlight">with Augmented Reality</span>
+                </h1>
+                <p class="hero-description">
+                    Transform your world with cutting-edge AR technology. 
+                    Explore immersive experiences, interactive 3D models, and 
+                    revolutionary digital overlays.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary btn-large" id="heroARBtn">
+                        <span>Launch AR</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="btn-secondary btn-large" id="watchDemoBtn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 6L14 10L8 14V6Z" fill="currentColor"/>
+                        </svg>
+                        <span>Watch Demo</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">AR Models</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="ar-preview">
+                    <div class="ar-frame">
+                        <div class="ar-content">
+                            <div class="ar-object floating-object-1">
+                                <div class="object-glow"></div>
+                            </div>
+                            <div class="ar-object floating-object-2">
+                                <div class="object-glow"></div>
+                            </div>
+                            <div class="ar-object floating-object-3">
+                                <div class="object-glow"></div>
+                            </div>
+                        </div>
+                        <div class="ar-overlay">
+                            <div class="overlay-info">
+                                <span class="info-label">AR Mode Active</span>
+                                <span class="info-value">Tracking: 98%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Everything you need for immersive AR experiences</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 4L20 12L28 13L22 19L24 27L16 23L8 27L10 19L4 13L12 12L16 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">3D Object Tracking</h3>
+                    <p class="feature-description">Advanced computer vision algorithms for precise 3D object recognition and tracking in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 16L14 18L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Real-time Rendering</h3>
+                    <p class="feature-description">High-performance rendering engine delivers smooth 60fps AR experiences on all devices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 6V16L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Multi-platform Support</h3>
+                    <p class="feature-description">Works seamlessly on iOS, Android, and Web browsers with consistent performance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2L20 10L28 11L22 17L24 25L16 21L8 25L10 17L4 11L12 10L16 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Cloud Integration</h3>
+                    <p class="feature-description">Sync your AR experiences across devices with secure cloud storage and sharing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 16L14 22L24 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Markerless AR</h3>
+                    <p class="feature-description">No markers needed - our SLAM technology creates AR experiences anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="6" y="8" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 14L16 18L20 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Easy Integration</h3>
+                    <p class="feature-description">Simple APIs and SDKs make it easy to integrate AR into your applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AR Gallery</h2>
+                <p class="section-subtitle">Explore amazing AR creations from our community</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="image-placeholder ar-scene-1"></div>
+                        <div class="gallery-overlay">
+                            <button class="btn-view-ar">View in AR</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Furniture Preview</h4>
+                        <p>See how furniture looks in your space</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="image-placeholder ar-scene-2"></div>
+                        <div class="gallery-overlay">
+                            <button class="btn-view-ar">View in AR</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Virtual Try-On</h4>
+                        <p>Try products before you buy</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="image-placeholder ar-scene-3"></div>
+                        <div class="gallery-overlay">
+                            <button class="btn-view-ar">View in AR</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Educational Models</h4>
+                        <p>Interactive learning experiences</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="image-placeholder ar-scene-4"></div>
+                        <div class="gallery-overlay">
+                            <button class="btn-view-ar">View in AR</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Gaming AR</h4>
+                        <p>Immersive gaming experiences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AR Modal -->
+    <div class="modal" id="arModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>AR Experience</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="ar-viewport" id="arViewport">
+                    <div class="ar-placeholder">
+                        <div class="ar-loader">
+                            <div class="loader-spinner"></div>
+                            <p>Initializing AR Camera...</p>
+                            <small>Please allow camera access when prompted</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="ar-controls">
+                    <button class="control-btn" id="captureBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                        Capture
+                    </button>
+                    <button class="control-btn" id="toggleModelBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        Change Model
+                    </button>
+                    <button class="control-btn" id="shareBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 5.35064 15.0602 5.68722 15.1707 6M6 15C4.34315 15 3 16.3431 3 18C3 19.6569 4.34315 21 6 21C7.65685 21 9 19.6569 9 18C9 17.6494 8.93975 17.3128 8.82929 17M15.1707 6L8.82929 17M15.1707 6C15.0602 6.31278 15 6.65064 15 7L15 17C15 17.3494 15.0602 17.6872 15.1707 18M8.82929 17C8.93975 16.6872 9 16.3506 9 16L9 8C9 7.64936 8.93975 7.31278 8.82929 7M15.1707 18L8.82929 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="logo-icon">AR</div>
+                        <span class="logo-text">AR Platform</span>
+                    </div>
+                    <p class="footer-description">
+                        Bringing augmented reality to everyone. 
+                        Experience the future of digital interaction.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AR Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

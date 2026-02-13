@@ -12,6 +12,9 @@ const toggleModelBtn = document.getElementById('toggleModelBtn');
 const shareBtn = document.getElementById('shareBtn');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navMenu = document.querySelector('.nav-menu');
+const spidermanModal = document.getElementById('spidermanModal');
+const closeSpidermanModal = document.getElementById('closeSpidermanModal');
+const spidermanTriggers = document.querySelectorAll('.btn-view-spiderman');
 
 // AR State
 let arActive = false;
@@ -77,6 +80,20 @@ function closeARModal() {
     arModal.classList.remove('active');
     document.body.style.overflow = '';
     stopAR();
+}
+
+// Open Spiderman AR Modal (model-viewer based)
+function openSpidermanModal() {
+    if (!spidermanModal) return;
+    spidermanModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close Spiderman AR Modal
+function closeSpidermanModalFn() {
+    if (!spidermanModal) return;
+    spidermanModal.classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 // Initialize AR Experience
@@ -368,10 +385,33 @@ document.querySelectorAll('.btn-view-ar').forEach(btn => {
     });
 });
 
+// Spiderman AR trigger buttons
+spidermanTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openSpidermanModal();
+    });
+});
+
+// Spiderman AR modal close handlers
+if (closeSpidermanModal && spidermanModal) {
+    closeSpidermanModal.addEventListener('click', closeSpidermanModalFn);
+    spidermanModal.addEventListener('click', (e) => {
+        if (e.target === spidermanModal) {
+            closeSpidermanModalFn();
+        }
+    });
+}
+
 // Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && arModal.classList.contains('active')) {
-        closeARModal();
+    if (e.key === 'Escape') {
+        if (arModal.classList.contains('active')) {
+            closeARModal();
+        }
+        if (spidermanModal && spidermanModal.classList.contains('active')) {
+            closeSpidermanModalFn();
+        }
     }
 });
 

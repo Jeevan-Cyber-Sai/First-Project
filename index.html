@@ -226,12 +226,12 @@
                     <div class="gallery-image">
                         <div class="image-placeholder ar-scene-4"></div>
                         <div class="gallery-overlay">
-                            <button class="btn-view-ar">View in AR</button>
+                            <button class="btn-view-spiderman">View Spiderman</button>
                         </div>
                     </div>
                     <div class="gallery-info">
-                        <h4>Gaming AR</h4>
-                        <p>Immersive gaming experiences</p>
+                        <h4>Spiderman AR</h4>
+                        <p>Launch the Spiderman AR experience</p>
                     </div>
                 </div>
             </div>
@@ -278,6 +278,29 @@
                         Share
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spiderman AR Modal (model-viewer based) -->
+    <div class="modal" id="spidermanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Spiderman AR Experience</h3>
+                <button class="modal-close" id="closeSpidermanModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Uses model-viewer for 3D/AR rendering of the Spiderman model -->
+                <model-viewer
+                    id="spidermanViewer"
+                    src="spiderman/scene.glts"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1"
+                    style="width: 100%; height: 100%; background: transparent;">
+                </model-viewer>
             </div>
         </div>
     </div>
@@ -329,7 +352,8 @@
             </div>
         </div>
     </footer>
-
+    <!-- 3D model viewer for Spiderman AR -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

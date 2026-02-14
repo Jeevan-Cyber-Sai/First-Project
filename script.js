@@ -21,6 +21,9 @@ const hulkTriggers = document.querySelectorAll('.btn-view-hulk');
 const ironmanModal = document.getElementById('ironmanModal');
 const closeIronmanModal = document.getElementById('closeIronmanModal');
 const ironmanTriggers = document.querySelectorAll('.btn-view-ironman');
+const captainamericaModal = document.getElementById('captainamericaModal');
+const closeCaptainamericaModal = document.getElementById('closeCaptainamericaModal');
+const captainamericaTriggers = document.querySelectorAll('.btn-view-captainamerica');
 
 // AR State
 let arActive = false;
@@ -96,6 +99,9 @@ const HULK_MODEL_SRC = 'marvel_rivals_hulk_green_scar/scene.gltf';
 
 // Iron Man model path (relative to page)
 const IRONMAN_MODEL_SRC = 'iron_man (1)/scene.gltf';
+
+// Captain America model path (relative to page)
+const CAPTAINAMERICA_MODEL_SRC = 'steven_rogers_captain_america/scene.gltf';
 
 // Open Spiderman AR Modal (model-viewer based)
 function openSpidermanModal() {
@@ -242,6 +248,58 @@ function loadIronmanModalViewer() {
     }
 
     viewer.setAttribute('src', IRONMAN_MODEL_SRC);
+    viewer.setAttribute('ar', '');
+    viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+    viewer.addEventListener('load', onLoad, { once: true });
+    viewer.addEventListener('error', onError, { once: true });
+    setTimeout(function () {
+        if (loadingEl.style.display !== 'none') {
+            loadingEl.style.display = 'none';
+        }
+    }, 10000);
+}
+
+// Open Captain America AR Modal (model-viewer based)
+function openCaptainamericaModal() {
+    if (!captainamericaModal) return;
+    captainamericaModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    loadCaptainamericaModalViewer();
+}
+
+// Close Captain America AR Modal
+function closeCaptainamericaModalFn() {
+    if (!captainamericaModal) return;
+    captainamericaModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Load Captain America model into modal viewer
+function loadCaptainamericaModalViewer() {
+    const viewer = document.getElementById('captainamericaViewer');
+    const container = document.getElementById('captainamericaViewerContainer');
+    const loadingEl = document.getElementById('captainamericaViewerLoading');
+    const errorEl = document.getElementById('captainamericaViewerError');
+    if (!viewer || !container || !loadingEl || !errorEl) return;
+
+    errorEl.style.display = 'none';
+    loadingEl.style.display = 'flex';
+
+    function onLoad() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'none';
+    }
+    function onError() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+    }
+
+    if (viewer.src && viewer.src.indexOf(CAPTAINAMERICA_MODEL_SRC) !== -1) {
+        loadingEl.style.display = 'none';
+        return;
+    }
+
+    viewer.setAttribute('src', CAPTAINAMERICA_MODEL_SRC);
     viewer.setAttribute('ar', '');
     viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
     viewer.addEventListener('load', onLoad, { once: true });
@@ -552,6 +610,14 @@ ironmanTriggers.forEach(btn => {
     });
 });
 
+// Captain America AR trigger buttons
+captainamericaTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openCaptainamericaModal();
+    });
+});
+
 // Spiderman AR modal close handlers
 if (closeSpidermanModal && spidermanModal) {
     closeSpidermanModal.addEventListener('click', closeSpidermanModalFn);
@@ -582,6 +648,16 @@ if (closeIronmanModal && ironmanModal) {
     });
 }
 
+// Captain America AR modal close handlers
+if (closeCaptainamericaModal && captainamericaModal) {
+    closeCaptainamericaModal.addEventListener('click', closeCaptainamericaModalFn);
+    captainamericaModal.addEventListener('click', (e) => {
+        if (e.target === captainamericaModal) {
+            closeCaptainamericaModalFn();
+        }
+    });
+}
+
 // Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -596,6 +672,9 @@ document.addEventListener('keydown', (e) => {
         }
         if (ironmanModal && ironmanModal.classList.contains('active')) {
             closeIronmanModalFn();
+        }
+        if (captainamericaModal && captainamericaModal.classList.contains('active')) {
+            closeCaptainamericaModalFn();
         }
     }
 });
@@ -641,6 +720,40 @@ if ('IntersectionObserver' in window) {
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
+}
+
+// Initialize Captain America Preview Model
+function initializeCaptainamericaPreview() {
+    const preview = document.getElementById('captainamericaPreview');
+    if (!preview) return;
+
+    function onPreviewLoad() {
+        preview.style.opacity = '1';
+        preview.setAttribute('loaded', '');
+    }
+    function onPreviewError() {
+        preview.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'image-placeholder ar-scene-4';
+        fallback.style.background = 'linear-gradient(135deg, #1e40af 0%, #dc2626 100%)';
+        fallback.style.display = 'flex';
+        fallback.style.alignItems = 'center';
+        fallback.style.justifyContent = 'center';
+        fallback.style.fontSize = '4rem';
+        fallback.style.opacity = '0.5';
+        fallback.textContent = '🛡️';
+        preview.parentElement.insertBefore(fallback, preview);
+    }
+
+    if (customElements.get('model-viewer')) {
+        preview.addEventListener('load', onPreviewLoad, { once: true });
+        preview.addEventListener('error', onPreviewError, { once: true });
+    } else {
+        customElements.whenDefined('model-viewer').then(() => {
+            preview.addEventListener('load', onPreviewLoad, { once: true });
+            preview.addEventListener('error', onPreviewError, { once: true });
+        });
+    }
 }
 
 // Initialize Iron Man Preview Model
@@ -755,6 +868,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeHulkPreview();
     // Initialize Iron Man preview
     initializeIronmanPreview();
+    // Initialize Captain America preview
+    initializeCaptainamericaPreview();
     
     // Add loading animation completion
     setTimeout(() => {

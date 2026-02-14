@@ -846,6 +846,74 @@ body {
     background: linear-gradient(135deg, #b91c1c 0%, #b45309 100%);
 }
 
+/* Captain America Gallery Item with 3D Model */
+.captainamerica-item .gallery-image {
+    position: relative;
+    background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+}
+
+#captainamericaPreview {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+#captainamericaPreview[loaded] {
+    opacity: 1;
+}
+
+.captainamerica-item:hover #captainamericaPreview {
+    pointer-events: auto;
+}
+
+#captainamericaPreview:not([loaded]) {
+    background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#captainamericaPreview:not([loaded])::before {
+    content: '🛡️';
+    font-size: 3rem;
+    opacity: 0.5;
+    animation: pulse 2s infinite;
+}
+
+.captainamerica-item .gallery-overlay {
+    z-index: 5;
+}
+
+.btn-view-captainamerica {
+    background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-view-captainamerica:hover {
+    transform: scale(1.05);
+}
+
+.captainamerica-item model-viewer {
+    --poster-color: transparent;
+}
+
+.captainamerica-item model-viewer::part(default-ar-button) {
+    display: none;
+}
+
+.captainamerica-item model-viewer::part(poster) {
+    background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+}
+
 /* Modal */
 .modal {
     display: none;
@@ -1206,6 +1274,66 @@ body {
 }
 
 .ironman-error-message code {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--primary-light);
+}
+
+/* Captain America AR Modal Styles */
+#captainamericaModal .modal-body {
+    padding: 0;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.captainamerica-viewer-container {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #dc2626 100%);
+}
+
+#captainamericaViewer {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 0;
+}
+
+.captainamerica-loading-message,
+.captainamerica-error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #dc2626 100%);
+    z-index: 2;
+}
+
+.captainamerica-loading-message .loader-spinner {
+    width: 48px;
+    height: 48px;
+}
+
+.captainamerica-error-message {
+    color: var(--text-primary);
+}
+
+.captainamerica-error-message code {
     display: block;
     margin-top: 0.5rem;
     padding: 0.5rem;

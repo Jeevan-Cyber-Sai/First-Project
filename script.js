@@ -18,6 +18,9 @@ const spidermanTriggers = document.querySelectorAll('.btn-view-spiderman');
 const hulkModal = document.getElementById('hulkModal');
 const closeHulkModal = document.getElementById('closeHulkModal');
 const hulkTriggers = document.querySelectorAll('.btn-view-hulk');
+const ironmanModal = document.getElementById('ironmanModal');
+const closeIronmanModal = document.getElementById('closeIronmanModal');
+const ironmanTriggers = document.querySelectorAll('.btn-view-ironman');
 
 // AR State
 let arActive = false;
@@ -90,6 +93,9 @@ const SPIDERMAN_MODEL_SRC = 'spiderman/scene.gltf';
 
 // Hulk model path (relative to page)
 const HULK_MODEL_SRC = 'marvel_rivals_hulk_green_scar/scene.gltf';
+
+// Iron Man model path (relative to page)
+const IRONMAN_MODEL_SRC = 'iron_man (1)/scene.gltf';
 
 // Open Spiderman AR Modal (model-viewer based)
 function openSpidermanModal() {
@@ -184,6 +190,58 @@ function loadHulkModalViewer() {
     }
 
     viewer.setAttribute('src', HULK_MODEL_SRC);
+    viewer.setAttribute('ar', '');
+    viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+    viewer.addEventListener('load', onLoad, { once: true });
+    viewer.addEventListener('error', onError, { once: true });
+    setTimeout(function () {
+        if (loadingEl.style.display !== 'none') {
+            loadingEl.style.display = 'none';
+        }
+    }, 10000);
+}
+
+// Open Iron Man AR Modal (model-viewer based)
+function openIronmanModal() {
+    if (!ironmanModal) return;
+    ironmanModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    loadIronmanModalViewer();
+}
+
+// Close Iron Man AR Modal
+function closeIronmanModalFn() {
+    if (!ironmanModal) return;
+    ironmanModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Load Iron Man model into modal viewer
+function loadIronmanModalViewer() {
+    const viewer = document.getElementById('ironmanViewer');
+    const container = document.getElementById('ironmanViewerContainer');
+    const loadingEl = document.getElementById('ironmanViewerLoading');
+    const errorEl = document.getElementById('ironmanViewerError');
+    if (!viewer || !container || !loadingEl || !errorEl) return;
+
+    errorEl.style.display = 'none';
+    loadingEl.style.display = 'flex';
+
+    function onLoad() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'none';
+    }
+    function onError() {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+    }
+
+    if (viewer.src && viewer.src.indexOf(IRONMAN_MODEL_SRC) !== -1) {
+        loadingEl.style.display = 'none';
+        return;
+    }
+
+    viewer.setAttribute('src', IRONMAN_MODEL_SRC);
     viewer.setAttribute('ar', '');
     viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
     viewer.addEventListener('load', onLoad, { once: true });
@@ -486,6 +544,14 @@ hulkTriggers.forEach(btn => {
     });
 });
 
+// Iron Man AR trigger buttons
+ironmanTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openIronmanModal();
+    });
+});
+
 // Spiderman AR modal close handlers
 if (closeSpidermanModal && spidermanModal) {
     closeSpidermanModal.addEventListener('click', closeSpidermanModalFn);
@@ -506,6 +572,16 @@ if (closeHulkModal && hulkModal) {
     });
 }
 
+// Iron Man AR modal close handlers
+if (closeIronmanModal && ironmanModal) {
+    closeIronmanModal.addEventListener('click', closeIronmanModalFn);
+    ironmanModal.addEventListener('click', (e) => {
+        if (e.target === ironmanModal) {
+            closeIronmanModalFn();
+        }
+    });
+}
+
 // Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -517,6 +593,9 @@ document.addEventListener('keydown', (e) => {
         }
         if (hulkModal && hulkModal.classList.contains('active')) {
             closeHulkModalFn();
+        }
+        if (ironmanModal && ironmanModal.classList.contains('active')) {
+            closeIronmanModalFn();
         }
     }
 });
@@ -562,6 +641,40 @@ if ('IntersectionObserver' in window) {
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
+}
+
+// Initialize Iron Man Preview Model
+function initializeIronmanPreview() {
+    const preview = document.getElementById('ironmanPreview');
+    if (!preview) return;
+
+    function onPreviewLoad() {
+        preview.style.opacity = '1';
+        preview.setAttribute('loaded', '');
+    }
+    function onPreviewError() {
+        preview.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'image-placeholder ar-scene-4';
+        fallback.style.background = 'linear-gradient(135deg, #b91c1c 0%, #b45309 100%)';
+        fallback.style.display = 'flex';
+        fallback.style.alignItems = 'center';
+        fallback.style.justifyContent = 'center';
+        fallback.style.fontSize = '4rem';
+        fallback.style.opacity = '0.5';
+        fallback.textContent = '🦾';
+        preview.parentElement.insertBefore(fallback, preview);
+    }
+
+    if (customElements.get('model-viewer')) {
+        preview.addEventListener('load', onPreviewLoad, { once: true });
+        preview.addEventListener('error', onPreviewError, { once: true });
+    } else {
+        customElements.whenDefined('model-viewer').then(() => {
+            preview.addEventListener('load', onPreviewLoad, { once: true });
+            preview.addEventListener('error', onPreviewError, { once: true });
+        });
+    }
 }
 
 // Initialize Hulk Preview Model
@@ -640,6 +753,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSpidermanPreview();
     // Initialize Hulk preview
     initializeHulkPreview();
+    // Initialize Iron Man preview
+    initializeIronmanPreview();
     
     // Add loading animation completion
     setTimeout(() => {

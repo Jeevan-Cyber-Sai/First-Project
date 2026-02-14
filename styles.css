@@ -710,103 +710,72 @@ body {
     background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
 }
 
-/* Iron Man gallery item */
-.ironman-item .gallery-image {
+/* Hulk Gallery Item with 3D Model */
+.hulk-item .gallery-image {
     position: relative;
-    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+    background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
 }
 
-#ironmanPreview {
+#hulkPreview {
     width: 100%;
     height: 100%;
     min-height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
 }
 
-.ironman-item:hover #ironmanPreview {
+#hulkPreview[loaded] {
+    opacity: 1;
+}
+
+.hulk-item:hover #hulkPreview {
     pointer-events: auto;
 }
 
-#ironmanPreview:not([loaded]) {
-    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+#hulkPreview:not([loaded]) {
+    background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.ironman-item .gallery-overlay {
+#hulkPreview:not([loaded])::before {
+    content: '💪';
+    font-size: 3rem;
+    opacity: 0.5;
+    animation: pulse 2s infinite;
+}
+
+.hulk-item .gallery-overlay {
     z-index: 5;
 }
 
-.ironman-item model-viewer {
+.btn-view-hulk {
+    background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-view-hulk:hover {
+    transform: scale(1.05);
+}
+
+.hulk-item model-viewer {
     --poster-color: transparent;
 }
 
-.ironman-item model-viewer::part(default-ar-button) {
+.hulk-item model-viewer::part(default-ar-button) {
     display: none;
 }
 
-.ironman-item model-viewer::part(poster) {
-    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
-}
-
-/* Iron Man AR Modal */
-#ironmanModal .modal-body {
-    padding: 0;
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-}
-
-.ironman-viewer-container {
-    position: relative;
-    width: 100%;
-    min-height: 500px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-#ironmanViewer {
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-    border-radius: 0;
-}
-
-.ironman-loading-message,
-.ironman-error-message {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-secondary);
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    z-index: 2;
-}
-
-.ironman-loading-message .loader-spinner {
-    width: 48px;
-    height: 48px;
-}
-
-.ironman-error-message {
-    color: var(--text-primary);
-}
-
-.ironman-error-message code {
-    display: block;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: var(--bg-card);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--primary-light);
+.hulk-item model-viewer::part(poster) {
+    background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
 }
 
 /* Modal */
@@ -1049,6 +1018,66 @@ body {
 }
 
 .spiderman-error-message code {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--primary-light);
+}
+
+/* Hulk AR Modal Styles */
+#hulkModal .modal-body {
+    padding: 0;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hulk-viewer-container {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, #0f172a 0%, #14532d 100%);
+}
+
+#hulkViewer {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 0;
+}
+
+.hulk-loading-message,
+.hulk-error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, #0f172a 0%, #14532d 100%);
+    z-index: 2;
+}
+
+.hulk-loading-message .loader-spinner {
+    width: 48px;
+    height: 48px;
+}
+
+.hulk-error-message {
+    color: var(--text-primary);
+}
+
+.hulk-error-message code {
     display: block;
     margin-top: 0.5rem;
     padding: 0.5rem;

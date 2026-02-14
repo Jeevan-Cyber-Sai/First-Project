@@ -710,6 +710,105 @@ body {
     background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
 }
 
+/* Iron Man gallery item */
+.ironman-item .gallery-image {
+    position: relative;
+    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+}
+
+#ironmanPreview {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+}
+
+.ironman-item:hover #ironmanPreview {
+    pointer-events: auto;
+}
+
+#ironmanPreview:not([loaded]) {
+    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ironman-item .gallery-overlay {
+    z-index: 5;
+}
+
+.ironman-item model-viewer {
+    --poster-color: transparent;
+}
+
+.ironman-item model-viewer::part(default-ar-button) {
+    display: none;
+}
+
+.ironman-item model-viewer::part(poster) {
+    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+}
+
+/* Iron Man AR Modal */
+#ironmanModal .modal-body {
+    padding: 0;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ironman-viewer-container {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+#ironmanViewer {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 0;
+}
+
+.ironman-loading-message,
+.ironman-error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    z-index: 2;
+}
+
+.ironman-loading-message .loader-spinner {
+    width: 48px;
+    height: 48px;
+}
+
+.ironman-error-message {
+    color: var(--text-primary);
+}
+
+.ironman-error-message code {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--primary-light);
+}
+
 /* Modal */
 .modal {
     display: none;

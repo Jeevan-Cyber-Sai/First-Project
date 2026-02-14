@@ -204,6 +204,33 @@
                         <p>Launch the Spiderman AR experience</p>
                     </div>
                 </div>
+                <div class="gallery-item ironman-item">
+                    <div class="gallery-image">
+                        <model-viewer
+                            id="ironmanPreview"
+                            src="iron_man (1)/scene.gltf"
+                            camera-controls
+                            auto-rotate
+                            rotation-per-second="30deg"
+                            interaction-policy="allow-when-focused"
+                            shadow-intensity="1"
+                            exposure="1.2"
+                            environment-image="neutral"
+                            camera-orbit="auto auto auto"
+                            field-of-view="45deg"
+                            min-camera-orbit="auto 0deg auto"
+                            max-camera-orbit="auto 180deg auto"
+                            style="width: 100%; height: 100%; background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);">
+                        </model-viewer>
+                        <div class="gallery-overlay">
+                            <button class="btn-view-ironman">View Iron Man AR</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>Iron Man AR</h4>
+                        <p>Launch the Iron Man AR experience</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -276,6 +303,36 @@
                     <div id="spidermanViewerLoading" class="spiderman-loading-message">
                         <div class="loader-spinner"></div>
                         <p>Loading Spiderman model...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Iron Man AR Modal (model-viewer based) -->
+    <div class="modal" id="ironmanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Iron Man AR Experience</h3>
+                <button class="modal-close" id="closeIronmanModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="ironmanViewerContainer" class="ironman-viewer-container">
+                    <model-viewer
+                        id="ironmanViewer"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        exposure="1.2"
+                        style="width: 100%; height: 100%; min-height: 500px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                    </model-viewer>
+                    <div id="ironmanViewerError" class="ironman-error-message" style="display: none;">
+                        <p>Could not load Iron Man model.</p>
+                        <small>Check that <code>iron_man (1)/scene.gltf</code> and related files exist and you're using a local server (not file://).</small>
+                    </div>
+                    <div id="ironmanViewerLoading" class="ironman-loading-message">
+                        <div class="loader-spinner"></div>
+                        <p>Loading Iron Man model...</p>
                     </div>
                 </div>
             </div>
